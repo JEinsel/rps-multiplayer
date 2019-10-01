@@ -6,13 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RPS</title>
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-database.js"></script>
 
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="jquery-3.4.1.min.js"></script>
+
+    <!-- Jquery -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <!-- Links to other files -->
     <link rel="stylesheet" href="./Assets/style/style.css">
-    <script src="./Assets/javascript/javascript.js"></script>
+    
 </head>
 
 <body>
@@ -27,41 +36,51 @@
                     <div class="col-1"></div>
                     <div class="col-3 text-center">
                         <h1> Player 1</h1>
-
-                        <button id=player1Rock>Rock</button>
-
-                        <button id=player1Paper>Paper</button>
-
-                        <button id=player1Scissors>Scissors</button>
+                        
+                        <button id="player1Rock">Rock</button>
+                        
+                        <button id="player1Paper">Paper</button>
+                        
+                        <button id="player1Scissors">Scissors</button>
                         <br>
-                        <button id="player1Confirm">Player 1 enter</button>
+                        <button id="player1Enter">Player 1 enter</button>
                     </div>
                     <!-- </div> -->
-
+                    
                     <div class="col-3 text-center">
                         <h1>Results</h1>
-                        <h2>Player 1 wins: <span id=player1Wins></span> </h1>
-                            <h2>Player 2 wins: <span id=player2Wins></span></h1>
-                                <h2>Ties: <span id=ties></span></h1>
+                        <h2>Player 1 wins: <span id="player1Wins"></span> </h2>
+                        <h2>Player 1 Losses: <span id="player1Losses"></span> </h2>
+                        <br>
+
+                            <h2>Player 2 wins: <span id="player2Wins"></span></h2>
+                            <h2>Player 2 Losses: <span id="player2Losses"></span></h2>
+                            <br><br>
+                            <h2>Ties: <span id="ties"></span></h2>
+                                <br><br>
+                                <button id="reset">Reset</button>
+                        <br><br>
+                                <h2 id="watchers"></h2>
                     </div>
                     <div class="col-3 text-center">
                         <h1> Player 2</h1>
-
-                        <button id=player2Rock>Rock</button>
-
-                        <button id=player2Paper>Paper</button>
-
-                        <button id=player2Scissors>Scissors</button>
+                        
+                        <button id="player2Rock">Rock</button>
+                        
+                        <button id="player2Paper">Paper</button>
+                        
+                        <button id="player2Scissors">Scissors</button>
                         <br>
-                        <button id="player2Confirm">Player 2 enter</button>
+                        <button id="player2Enter">Player 2 enter</button>
                     </div>
                 </div>
-
-                </p>
+                
+            </p>
             </div>
         </div>
     </div>
 
+    <script src="./Assets/javascript/javascript.js"></script>
 </body>
 
 </html>
