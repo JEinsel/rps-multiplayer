@@ -16,17 +16,17 @@ var database = firebase.database()
 
 // Establishing values
 
-p1Name = ""
-p1Enter = false
-p1Wins = 0
-p1Losses = 0
-p1Guess = ""
-
-p2Name = ""
-p2Enter = false
-p2Wins = 0
-p2Losses = 0
-p2Guess = ""
+var p1Name = ""
+var p1Enter = false
+var p1Wins = 0
+var p1Losses = 0
+var p1Guess = ""
+var ties =0
+var p2Name = ""
+var p2Enter = false
+var p2Wins = 0
+var p2Losses = 0
+var p2Guess = ""
 
 
 // TESTING CONNECTIONS
@@ -68,48 +68,86 @@ $("#player1Enter").on("click", function () {
     p1Name = prompt("What is your name?");
     $("#player1Enter").attr("disabled", true);
     p1Enter = true;
-    database.ref().set({
+    database.ref().update({
         p1Name: p1Name,
         p1Enter: true,
     })
 })
+
 $("#player2Enter").on("click", function () {
     console.log("I have been clicked");
     p2Name = prompt("What is your name?");
     $("#player2Enter").attr("disabled", true);
     p2Enter = true;
-    database.ref().add({
+    database.ref().update({
         p2Name: p2Name,
         p2Enter: true,
     })
 })
 
 
-$("#player1Enter").on("click", function () {
+$("#player1Rock").on("click", function () {
     console.log("I have been clicked (rock)");
     p1Guess = "rock"
-    database.ref().set({
+    database.ref().update({
         p1Guess: p1Guess
     })
 })
-$("#player1Enter").on("click", function () {
+
+$("#player1Paper").on("click", function () {
     console.log("I have been clicked (rock)");
-    database.ref().set({
-        p1Guess: "rock"
+    p1Guess = "paper"
+    database.ref().update({
+        p1Guess: p1Guess
     })
-    p1Guess = "rock"
 })
+
+$("#player1Scissors").on("click", function () {
+    console.log("I have been clicked (rock)");
+    p1Guess = "scissors"
+    database.ref().update({
+        p1Guess: p1Guess
+    })
+})
+
+$("#player2Rock").on("click", function () {
+    console.log("I have been clicked (rock)");
+    p2Guess = "rock"
+    database.ref().update({
+        p2Guess: p2Guess
+    })
+})
+
+$("#player2Paper").on("click", function () {
+    console.log("I have been clicked (paper2)");
+    p2Guess = "paper"
+    database.ref().update({
+        p2Guess: p2Guess
+    })
+})
+
+$("#player2Scissors").on("click", function () {
+    console.log("I have been clicked (rock)");
+    p2Guess = "scissors"
+    database.ref().update({
+        p2Guess: p2Guess
+    })
+})
+
+
 
 $("#reset").on("click", function () {
     $("#player1Enter").attr("disabled", false)
     $("#player2Enter").attr("disabled", false)
-    // Setting values back to default
+    // $("#watchers").text(snapshot.numChildren());
+
+    // updating values back to default
     p1Name = ""
     p1Enter = false
     p1Wins = 0
     p1Losses = 0
     p1Guess = ""
-
+    ties = 0
     p2Name = ""
     p2Enter = false
     p2Wins = 0
@@ -122,7 +160,7 @@ $("#reset").on("click", function () {
         p1Wins: 0,
         p1Losses: 0,
         p1Guess: "",
-
+        ties: 0,
         p2Name: p1Name,
         p2Enter: false,
         p2Wins: 0,
@@ -133,11 +171,41 @@ $("#reset").on("click", function () {
 
 $("#player1Losses").text(database.ref().p1Losses)
 
-database.on("value", function (snapshot) {
+database.ref().on("value", function (snapshot) {
 
-    if (p1Guess === "rock" && p2Guess === "paper") {
-        p1Wins++
-        alert("P1 wins!")
+    $("#player1Wins").text(snapshot.val().p1Wins);
+    $("#player2Wins").text(snapshot.val().p2Wins);
+    $("#player1Losses").text(snapshot.val().p1Losses);
+    $("#player2Losses").text(snapshot.val().p2Losses);
+    $("#ties").text(snapshot.val().ties);
+    if (p1Guess != "" && p2Guess != "") {
+        // if ((p1Guess === "rock") || (p1Guess === "paper") || (p1Guess === "scissors")) {
+        if ((p1Guess === "rock" && p2Guess === "scissors") ||
+            (p1Guess === "scissors" && p2Guess === "paper") ||
+            (p1Guess === "paper" && p2Guess === "rock")) {
+            p1Wins++;
+            p2Losses++;
+            p1Guess = ""
+            p2Guess = ""
+        } else if (p1Guess === p2Guess) {
+            ties++;
+            p1Guess = ""
+            p2Guess = ""
+        } else {
+            p1Losses++;
+            p2Wins++;
+            p1Guess = ""
+            p2Guess = ""
+        }
+        database.ref().update({
+            p1Wins: p1Wins,
+            p2Wins: p2Wins,
+            p1Losses: p1Losses,
+            p2Losses: p2Losses,
+            p1Guess: "",
+            p2Guess: "",
+            ties: ties,
+        })
+        // }
     }
-
 })
