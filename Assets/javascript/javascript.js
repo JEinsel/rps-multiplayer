@@ -95,7 +95,7 @@ $("#player1Rock").on("click", function () {
 })
 
 $("#player1Paper").on("click", function () {
-    console.log("I have been clicked (rock)");
+    console.log("I have been clicked (paper)");
     p1Guess = "paper"
     database.ref().update({
         p1Guess: p1Guess
@@ -103,7 +103,7 @@ $("#player1Paper").on("click", function () {
 })
 
 $("#player1Scissors").on("click", function () {
-    console.log("I have been clicked (rock)");
+    console.log("I have been clicked (scissors)");
     p1Guess = "scissors"
     database.ref().update({
         p1Guess: p1Guess
@@ -111,7 +111,7 @@ $("#player1Scissors").on("click", function () {
 })
 
 $("#player2Rock").on("click", function () {
-    console.log("I have been clicked (rock)");
+    console.log("I have been clicked (rock2)");
     p2Guess = "rock"
     database.ref().update({
         p2Guess: p2Guess
@@ -127,7 +127,7 @@ $("#player2Paper").on("click", function () {
 })
 
 $("#player2Scissors").on("click", function () {
-    console.log("I have been clicked (rock)");
+    console.log("I have been clicked (scissors2)");
     p2Guess = "scissors"
     database.ref().update({
         p2Guess: p2Guess
@@ -161,7 +161,7 @@ $("#reset").on("click", function () {
         p1Losses: 0,
         p1Guess: "",
         ties: 0,
-        p2Name: p1Name,
+        p2Name: p2Name,
         p2Enter: false,
         p2Wins: 0,
         p2Losses: 0,
@@ -172,6 +172,8 @@ $("#reset").on("click", function () {
 $("#player1Losses").text(database.ref().p1Losses)
 
 database.ref().on("value", function (snapshot) {
+    $("#player1Name").text(snapshot.val().p1Name)
+    $("#player2Name").text(snapshot.val().p2Name)
 
     $("#player1Wins").text(snapshot.val().p1Wins);
     $("#player2Wins").text(snapshot.val().p2Wins);
@@ -184,14 +186,17 @@ database.ref().on("value", function (snapshot) {
             (p1Guess === "scissors" && p2Guess === "paper") ||
             (p1Guess === "paper" && p2Guess === "rock")) {
             p1Wins++;
+            alert("Player 1 win - " +p1Guess + " vs " + p2Guess)
             p2Losses++;
             p1Guess = ""
             p2Guess = ""
         } else if (p1Guess === p2Guess) {
+            alert("Tie! " + p1Guess + " " + p2Guess)
             ties++;
             p1Guess = ""
             p2Guess = ""
         } else {
+            alert("Player 2 win - " + p1Guess + " vs " + p2Guess)
             p1Losses++;
             p2Wins++;
             p1Guess = ""
