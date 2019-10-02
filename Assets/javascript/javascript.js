@@ -16,18 +16,39 @@ var database = firebase.database()
 
 // Establishing values
 
+
 var p1Name = ""
 var p1Enter = false
 var p1Wins = 0
 var p1Losses = 0
 var p1Guess = ""
-var ties =0
+var ties = 0
 var p2Name = ""
 var p2Enter = false
 var p2Wins = 0
 var p2Losses = 0
 var p2Guess = ""
 
+var message = $("#messages").val()
+
+// var messageTest
+
+
+
+
+$("#submitButton").on("click", function (event) {
+    event.preventDefault()
+    message = $("#message").val()
+    console.log(message)
+    $("#messages").append(message + "<br>")
+    database.ref().update({
+        message: message
+    })
+    $("#message").val(" ");
+
+})
+
+var chatDatabase = database.ref("/messages");
 
 // TESTING CONNECTIONS
 var connectionsRef = database.ref("/connections");
@@ -154,7 +175,12 @@ $("#reset").on("click", function () {
     p2Losses = 0
     p2Guess = ""
 
+    chatDatabase.ref().set({
+        messages: " ",
+    })
+
     database.ref().set({
+        messages: " ",
         p1Name: p1Name,
         p1Enter: false,
         p1Wins: 0,
@@ -186,7 +212,7 @@ database.ref().on("value", function (snapshot) {
             (p1Guess === "scissors" && p2Guess === "paper") ||
             (p1Guess === "paper" && p2Guess === "rock")) {
             p1Wins++;
-            alert("Player 1 win - " +p1Guess + " vs " + p2Guess)
+            alert("Player 1 win - " + p1Guess + " vs " + p2Guess)
             p2Losses++;
             p1Guess = ""
             p2Guess = ""
@@ -213,4 +239,20 @@ database.ref().on("value", function (snapshot) {
         })
         // }
     }
+})
+
+
+database.ref().on("value", function (snap) {
+
+    // $("#messages").append(database.ref().messages)
+    $("#messages").append(message + "<br>")
+
+
+
+    database.ref().update({
+
+
+    })
+
+
 })
