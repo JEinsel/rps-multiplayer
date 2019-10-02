@@ -39,12 +39,16 @@ var message = $("#messages").val()
 $("#submitButton").on("click", function (event) {
     event.preventDefault()
     message = $("#message").val()
-    console.log(message)
-    $("#messages").append(message + "<br>")
+    // console.log(message)
     database.ref().update({
         message: message
     })
+
     $("#message").val(" ");
+    
+})
+database.ref().on("value", function (snap) {
+    $("#messages").append(message + "<br>")
 
 })
 
@@ -175,7 +179,7 @@ $("#reset").on("click", function () {
     p2Losses = 0
     p2Guess = ""
 
-    chatDatabase.ref().set({
+    database.ref().set({
         messages: " ",
     })
 
@@ -246,8 +250,6 @@ database.ref().on("value", function (snap) {
 
     // $("#messages").append(database.ref().messages)
     $("#messages").append(message + "<br>")
-
-
 
     database.ref().update({
 
