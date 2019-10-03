@@ -30,9 +30,13 @@ var p2Losses = 0
 var p2Guess = ""
 
 var message = $("#messages").val()
-
+var clear = " "
 // var messageTest
 
+
+function clearFields() {
+   $("#messages").text(" ");
+}
 
 
 
@@ -46,6 +50,40 @@ $("#submitButton").on("click", function (event) {
     
     $("#message").val(" ");
     
+})
+
+$("#reset").on("click", function () {
+    $("#player1Enter").attr("disabled", false)
+    $("#player2Enter").attr("disabled", false)
+    // $("#watchers").text(snapshot.numChildren());
+    clearFields()
+
+    // updating values back to default
+    p1Name = ""
+    p1Enter = false
+    p1Wins = 0
+    p1Losses = 0
+    p1Guess = ""
+    ties = 0
+    p2Name = ""
+    p2Enter = false
+    p2Wins = 0
+    p2Losses = 0
+    p2Guess = ""
+
+    database.ref().set({
+        p1Name: p1Name,
+        p1Enter: false,
+        p1Wins: 0,
+        p1Losses: 0,
+        p1Guess: "",
+        ties: 0,
+        p2Name: p2Name,
+        p2Enter: false,
+        p2Wins: 0,
+        p2Losses: 0,
+        p2Guess: "",
+    })
 })
 
 database.ref().on("value", function (snap) {
@@ -166,43 +204,43 @@ $("#player2Scissors").on("click", function () {
 
 
 
-$("#reset").on("click", function () {
-    $("#player1Enter").attr("disabled", false)
-    $("#player2Enter").attr("disabled", false)
-    // $("#watchers").text(snapshot.numChildren());
+// $("#reset").on("click", function () {
+//     $("#player1Enter").attr("disabled", false)
+//     $("#player2Enter").attr("disabled", false)
+//     // $("#watchers").text(snapshot.numChildren());
 
-    // updating values back to default
-    p1Name = ""
-    p1Enter = false
-    p1Wins = 0
-    p1Losses = 0
-    p1Guess = ""
-    ties = 0
-    p2Name = ""
-    p2Enter = false
-    p2Wins = 0
-    p2Losses = 0
-    p2Guess = ""
+//     // updating values back to default
+//     p1Name = ""
+//     p1Enter = false
+//     p1Wins = 0
+//     p1Losses = 0
+//     p1Guess = ""
+//     ties = 0
+//     p2Name = ""
+//     p2Enter = false
+//     p2Wins = 0
+//     p2Losses = 0
+//     p2Guess = ""
 
-    database.ref().set({
-        messages: " ",
-    })
+//     database.ref().set({
+//         messages: " ",
+//     })
 
-    database.ref().set({
-        messages: " ",
-        p1Name: p1Name,
-        p1Enter: false,
-        p1Wins: 0,
-        p1Losses: 0,
-        p1Guess: "",
-        ties: 0,
-        p2Name: p2Name,
-        p2Enter: false,
-        p2Wins: 0,
-        p2Losses: 0,
-        p2Guess: "",
-    })
-})
+//     database.ref().set({
+//         messages: " ",
+//         p1Name: p1Name,
+//         p1Enter: false,
+//         p1Wins: 0,
+//         p1Losses: 0,
+//         p1Guess: "",
+//         ties: 0,
+//         p2Name: p2Name,
+//         p2Enter: false,
+//         p2Wins: 0,
+//         p2Losses: 0,
+//         p2Guess: "",
+//     })
+// })
 
 $("#player1Losses").text(database.ref().p1Losses)
 
