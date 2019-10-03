@@ -43,14 +43,19 @@ $("#submitButton").on("click", function (event) {
     database.ref().update({
         message: message
     })
-
+    
     $("#message").val(" ");
     
 })
+
 database.ref().on("value", function (snap) {
-    $("#messages").append(message + "<br>")
+    $("#messages").append(snap.val().message + "<br>")
+
+    // $("#messages").append(database.ref().messages)
+    // $("#messages").append(message + "<br>")
 
 })
+
 
 var chatDatabase = database.ref("/messages");
 
@@ -246,15 +251,3 @@ database.ref().on("value", function (snapshot) {
 })
 
 
-database.ref().on("value", function (snap) {
-
-    // $("#messages").append(database.ref().messages)
-    $("#messages").append(message + "<br>")
-
-    database.ref().update({
-
-
-    })
-
-
-})
